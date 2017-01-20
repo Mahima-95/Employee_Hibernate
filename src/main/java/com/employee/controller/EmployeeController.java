@@ -3,8 +3,6 @@ package com.employee.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,9 +20,9 @@ public class EmployeeController {
 	public String addEmployee() {
 		Employee employee = new Employee();
 		System.out.println(employee);
-		employee.setEmployeeID(1);
-		employee.setEmployeeName("Mahima");
-		employee.setEmployeeDesignation("Trainee");
+		/*employee.setEmployeeID(2);*/
+//		employee.setEmployeeName("MahimaAgrawal");
+//		employee.setEmployeeDesignation("Trainee");
 		return employeeService.addEmployee(employee);
 
 	}
@@ -38,7 +36,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/getEmployee")
 	public List<Employee> getEmployee() {
 		Employee employee = new Employee();
-		employee.getEmployeeID();
+//		employee.getEmployeeID();
 		return employeeService.getEmployee(employee);
 
 	}
@@ -46,8 +44,8 @@ public class EmployeeController {
 	@RequestMapping(value = "/updateEmployee")
 	public String updateEmployee() {
 		Employee employee = new Employee();
-		employee.setEmployeeID(3);
-		employee.setEmployeeName("Mahi");
+//		employee.setEmployeeID(2);
+//		employee.setEmployeeName("Aviral");
 		return employeeService.updateEmployee(employee);
 
 	}

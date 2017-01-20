@@ -3,43 +3,64 @@ package com.employee.pojo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Employee")
+@Table(name = "emp")
 public class Employee {
-	@Id
-	@Column(name = "emp_id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int EmployeeID;
-	@Column(name = "emp_name", nullable = false)
+
+	private long EmployeeId;
 	private String EmployeeName;
-	@Column(name = "emp_designation", nullable = false)
 	private String EmployeeDesignation;
 
-	public int getEmployeeID() {
-		return EmployeeID;
+	private Manager manager;
+
+	public Employee() {
 	}
 
-	public void setEmployeeID(int employeeID) {
-		EmployeeID = employeeID;
+	public Employee(String EmployeeName, String EmployeeDesignation, Manager manager) {
+		this.EmployeeName = EmployeeName;
+		this.EmployeeDesignation = EmployeeDesignation;
+		this.manager = manager;
+	}
+
+	@Id
+	@Column(name = "employeeId")
+	@GeneratedValue
+	public long getEmployeeId() {
+		return EmployeeId;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "managerId")
+	public Manager getManager() {
+		return manager;
 	}
 
 	public String getEmployeeName() {
 		return EmployeeName;
 	}
 
-	public void setEmployeeName(String employeeName) {
-		EmployeeName = employeeName;
+	public void setEmployeeName(String EmployeeName) {
+		this.EmployeeName = EmployeeName;
 	}
 
 	public String getEmployeeDesignation() {
 		return EmployeeDesignation;
 	}
 
-	public void setEmployeeDesignation(String employeeDesignation) {
-		EmployeeDesignation = employeeDesignation;
+	public void setEmployeeDesignation(String EmployeeDesignation) {
+		this.EmployeeDesignation = EmployeeDesignation;
+	}
+
+	public void setEmployeeId(long EmployeeId) {
+		this.EmployeeId = EmployeeId;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	}
 }

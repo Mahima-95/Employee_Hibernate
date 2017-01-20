@@ -11,38 +11,41 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 
 import com.employee.pojo.Employee;
+import com.employee.pojo.Manager;
 
 @Configuration
 public class EmployeeConfiguration {
-	
-		@Bean(name = "dataSource")
-		public DataSource getDataSource() {
-			BasicDataSource dataSource = new BasicDataSource();
-			dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-			dataSource.setUrl("jdbc:mysql://localhost:3306/mahima"); /*10.2.0.207:3306*/
-			dataSource.setUsername("root");
-			dataSource.setPassword("root");
-			return dataSource;
-		}
 
-		// @Autowired
-		@Bean(name = "sessionFactory")
-		public SessionFactory getSessionFactory(DataSource dataSource) {
-			LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(
-					dataSource);
-			sessionFactoryBuilder.addAnnotatedClass(Employee.class);
-			sessionFactoryBuilder.addProperties(getHibernateProperties());
-			return sessionFactoryBuilder.buildSessionFactory();
-		}
+	@Bean(name = "dataSource")
+	public DataSource getDataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://10.2.0.207:3306/mahima"); /* 10.2.0.207:3306*/
+		dataSource.setUsername("root");
+		dataSource.setPassword("root");
+		return dataSource;
+	}
 
-		private Properties getHibernateProperties() {
-			Properties properties = new Properties();
-			properties.put("hibernate.show_sql", "true");
-			properties.put("hibernate.dialect",
-					"org.hibernate.dialect.MySQLDialect");
-			properties.put("hibernate.hbm2ddl.auto", "update");
-			properties.put("hibernate.current_session_context_class", "thread");
-			return properties;
-		}
+	// @Autowired
+	@Bean(name = "sessionFactory")
+	public SessionFactory getSessionFactory(DataSource dataSource) {
+		LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder(
+				dataSource);
+		// sessionFactoryBuilder.addAnnotatedClass(Employee.class);
+		// sessionFactoryBuilder.addAnnotatedClass(Manager.class);
+		sessionFactoryBuilder.scanPackages("com.employee.pojo");
+		sessionFactoryBuilder.addProperties(getHibernateProperties());
+		return sessionFactoryBuilder.buildSessionFactory();
+	}
+
+	private Properties getHibernateProperties() {
+		Properties properties = new Properties();
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.dialect",
+				"org.hibernate.dialect.MySQLDialect");
+		properties.put("hibernate.hbm2ddl.auto", "create");
+		properties.put("hibernate.current_session_context_class", "thread");
+		return properties;
+	}
 
 }
